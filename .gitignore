@@ -1,0 +1,16 @@
+bin/
+vendor/
+.vscode/
+.idea/
+.env
+
+*.iml
+modules.xml
+*.ipr
+
+release/
+
+*.jsonl
+*.jsonl.gz
+*.json
+

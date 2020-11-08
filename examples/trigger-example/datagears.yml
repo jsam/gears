@@ -1,0 +1,27 @@
+version: 1
+
+remotes:
+  origin:
+    host: localhost
+    port: 6379
+    database: 0
+
+gears:
+  mygear1:
+    entrypoint: ./gear.py
+    version: 0.1.0
+    type: trigger
+    name: "data-mover"
+    description: "write to database"
+    values:
+      DatabaseHost: localhost
+      DatabasePort: 6543
+    requirements:
+      - numpy==1.19.4
+
+  mygear2:
+    entrypoint: ./gear.py
+    type: run
+    name: "calc2"
+    description: "calculation"
+    blocking: true

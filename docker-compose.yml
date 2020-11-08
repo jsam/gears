@@ -1,0 +1,13 @@
+version: '3'
+services:
+
+  redisinsight:
+    container_name: redisinsight
+    image: redislabs/redisinsight
+    ports:
+      - "8001:8001"
+
+  redis:
+    image: redislabs/redisgears
+    ports:
+      - 6379:6379
