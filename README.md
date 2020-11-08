@@ -1,6 +1,6 @@
 # datagears 
 
-The missing toolkit for next-gen cloud based data processing using `redisgears`.
+Tools for next-gen cloud based data processing based on RedisGears.
 ## Goals
 
   * Support for runtime and secret values
@@ -34,7 +34,6 @@ gears:
     entrypoint: ./gear.py
     version: 0.1.0
     type: trigger
-    name: "data-mover"
     description: "write to database"
     values:
       DatabaseHost: localhost
@@ -42,12 +41,12 @@ gears:
     requirements:
       - numpy==1.19.4
 
-  mygear2:
+  calc2:
     entrypoint: ./gear.py
     type: run
-    name: "calc2"
     description: "calculation"
     blocking: true
+
 ```
 And save it in your project root under the name `datagears.yml`
 
