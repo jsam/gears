@@ -15,6 +15,9 @@ gears:
     values:
       DatabaseHost: localhost
       DatabasePort: 6543
+    secrets:
+      - DATABASE_USER
+      - DATABASE_PASSWORD
     requirements:
       - numpy==1.19.4
 

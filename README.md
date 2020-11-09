@@ -3,12 +3,12 @@
 Tools for next-gen cloud based data processing based on RedisGears.
 ## Goals
 
-  * Support for runtime and secret values
-  * Keep track of deployed gears
-  * Provide versioning support for a deployment
-  * Attach additional metadata for each gear
-  * Provide gear rollbacks
-  * Provide gear based workflows for reproducible data processing
+  * [x] Support for runtime and secret values
+  * [x] Keep track of deployed gears
+  * [x] Provide versioning support for a deployment
+  * [x] Attach additional metadata for each gear
+  * [ ] Provide gear rollbacks
+  * [ ] Provide gear based workflows for reproducible data processing
 
 ## Install
 
@@ -17,9 +17,10 @@ make install
 ```
 
 This command will compile the binary and install it into `$GOPATH/bin`.
-## Manifest
 
-To write a project manifest use the following structure:
+### Add a trigger
+
+First we need to write a project manifest. To write a project manifest following structure can be used:
 ```
 version: 1
 
@@ -54,9 +55,9 @@ And save it in your project root under the name `datagears.yml`
 dg trigger add mygear1 
 ```
 
-This will deploy the gear `mygear1` to the `origin` instance it will track this action locally. 
-Each deployment gets assigned the deployment ID with which remote and local states are matches.
+This will deploy the gear `mygear1` to the `origin` instance and track it. 
 
+### List triggers
 To list all registration of triggers use:
 
 ```
@@ -68,6 +69,8 @@ Which should give similar result:
 ID         Name     Description        Type     Version  
 XmW3QAFDp  mygear1  write to database  trigger  0.1.0   
 ```
+
+### Remove trigger
 
 To remove the trigger:
 ```

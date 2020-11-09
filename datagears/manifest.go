@@ -8,6 +8,7 @@ import (
 	"github.com/teris-io/shortid"
 	"html/template"
 	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -38,9 +39,10 @@ type DGGear struct {
 	Secrets      []string          `yaml:"secrets"`
 	Requirements []string          `yaml:"requirements"`
 
-	scriptData string
-	outputData string
-	name       string
+	scriptData   string
+	outputData   string
+	name         string
+	secretValues map[string]string
 }
 
 //IsBlocking
@@ -56,6 +58,16 @@ func (gear *DGGear) SetName(name string) {
 	gear.name = name
 }
 
+func (gear *DGGear) ReadSecrets() map[string]string {
+	secretValues := make(map[string]string)
+
+	for _, secret := range gear.Secrets {
+		secretValues[secret] = os.Getenv(secret)
+	}
+
+	return secretValues
+}
+
 //Build assembles all needed information for the gear.
 func (gear *DGGear) Build() error {
 	scriptData, err := ioutil.ReadFile(gear.Entrypoint)
@@ -68,9 +80,18 @@ func (gear *DGGear) Build() error {
 		return err
 	}
 
+	values := gear.Values
+	for secretKey, secretValue := range gear.ReadSecrets() {
+		if secretValue == "" {
+			return fmt.Errorf("secret %s contains no value", secretKey)
+		}
+
+		values[secretKey] = secretValue
+	}
+
 	var output []byte
 	var buf = bytes.NewBuffer(output)
-	err = tmpl.Execute(buf, gear.Values)
+	err = tmpl.Execute(buf, values)
 	if err != nil {
 		return err
 	}
