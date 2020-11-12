@@ -80,6 +80,10 @@ func (gear *DGGear) Build() error {
 		return err
 	}
 
+	if gear.Values == nil {
+		gear.Values = make(map[string]string)
+	}
+
 	values := gear.Values
 	for secretKey, secretValue := range gear.ReadSecrets() {
 		if secretValue == "" {

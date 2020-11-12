@@ -48,7 +48,8 @@ to quickly create a Cobra application.`,
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(result.Val())
+
+		fmt.Println(result.Text())
 	},
 }
 

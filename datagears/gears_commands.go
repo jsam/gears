@@ -3,7 +3,6 @@ package datagears
 import (
 	"context"
 	"github.com/go-redis/redis/v8"
-	"strings"
 )
 
 // NOTE: Dump registration command
@@ -41,7 +40,9 @@ func (cmd *GearsCommands) Execute(gear *DGGear) *redis.Cmd {
 
 	if len(gear.Requirements) > 0 {
 		cmdParts = append(cmdParts, ArgRequirements)
-		cmdParts = append(cmdParts, strings.Join(gear.Requirements, " "))
+		for _, requirement := range gear.Requirements {
+			cmdParts = append(cmdParts, requirement)
+		}
 	}
 
 	ctx := context.Background()
